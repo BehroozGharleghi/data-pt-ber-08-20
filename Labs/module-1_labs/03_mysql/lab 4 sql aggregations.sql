@@ -78,8 +78,19 @@ or type = 'PRIJEM' and account_id =396 group by type order by type;
 # 7. From the previous output, translate the values for type to English, rename the column to transaction_type, 
 # round total_amount down to an integer
 
-SELECT account_id, type as transaction_type, SUM(amount) FROM bank.trans WHERE type = 'VYDAJ' as 'outgoing' and account_id =396 
-or type = 'PRIJEM' as 'incoming'and account_id =396 group by type order by type;
+CREATE TEMPORARY TABLE bank.output_amount
+SELECT account_id, type as transaction_type, floor(SUM(amount)) as total_amount FROM bank.trans WHERE type = 'VYDAJ' 
+and account_id =396 or type = 'PRIJEM' and account_id =396 group by type order by type;
+UPDATE bank.output_amount SET transaction_type='outgoing' WHERE transaction_type='VYDAJ' 
+UPDATE bank.output_amount SET transaction_type='incoming' WHERE transaction_type='PRIJEM' 
+
+
+# 8. From the previous result, modify you query so that it returns only one row, with a column for incoming amount, 
+# outgoing amount and the difference
+
+# 9. Continuing with the previous example, rank the top 10 account_ids based on their difference
+SELECT * FROM bank.trans; 
+
 
 
 
