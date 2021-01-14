@@ -17,6 +17,9 @@ select count(distinct business_segment) as count from olist.closed_deals where b
 # (of those that declared revenue).
 select distinct business_segment, sum(declared_monthly_revenue) as "sum" from olist.closed_deals group by business_segment order by sum desc limit 3;
 # 7. From the order_reviews table, find the total number of distinct review score values.
+SELECT count(distinct review_score) as 'total', review_score from olist.order_reviews group by review_score
+order by total desc limit 5;
+
 # 8. In the order_reviews table, create a new column with a description that corresponds to each number category 
 # for each review score from 1 - 5:
 select *, review_score as new_column from olist.order_reviews;

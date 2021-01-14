@@ -5,7 +5,7 @@ SELECT business_segment FROM olist.closed_deals;
 SELECT DISTINCT business_segment FROM olist.closed_deals;
 
 SELECT * FROM olist.closed_deals WHERE business_segment="toys";
-
+SELECT * FROM olist.closed_deals WHERE lead_type='industry'
 SELECT * FROM olist.closed_deals ORDER BY lead_type DESC;
 
 SELECT DISTINCT lead_type FROM olist.closed_deals ORDER BY lead_type;
